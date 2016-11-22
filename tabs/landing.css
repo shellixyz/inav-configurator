@@ -15,7 +15,7 @@
 .tab-landing .content_top {
     height: 140px;
     background: white;
-	background-image:url(/images/map_bg.svg);
+	background-image:url("../images/map_bg.svg");
     padding: 20px;
 }
 

@@ -220,7 +220,7 @@ TABS.motors.initialize = function (callback) {
         });
 
         // set refresh speeds according to configuration saved in storage
-        chrome.storage.local.get('motors_tab_accel_settings', function (result) {
+        storageHelper.get('motors_tab_accel_settings', function (result) {
             if (result.motors_tab_accel_settings) {
                 $('.tab-motors select[name="accel_refresh_rate"]').val(result.motors_tab_accel_settings.rate);
                 $('.tab-motors select[name="accel_scale"]').val(result.motors_tab_accel_settings.scale);
@@ -238,7 +238,7 @@ TABS.motors.initialize = function (callback) {
             var scale = parseFloat($('.tab-motors select[name="accel_scale"]').val());
 
             // store current/latest refresh rates in the storage
-            chrome.storage.local.set({'motors_tab_accel_settings': {'rate': rate, 'scale': scale}});
+            storageHelper.set({'motors_tab_accel_settings': {'rate': rate, 'scale': scale}});
 
             accelHelpers = initGraphHelpers('#accel', samples_accel_i, [-scale, scale]);
 

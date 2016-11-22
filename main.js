@@ -1,12 +1,49 @@
 'use strict';
 
 // Google Analytics
-var googleAnalyticsService = analytics.getService('ice_cream_app');
-var googleAnalytics = googleAnalyticsService.getTracker("UA-75834706-2");
-var googleAnalyticsConfig = false;
-googleAnalyticsService.getConfig().addCallback(function (config) {
-    googleAnalyticsConfig = config;
-});
+// var googleAnalyticsService = analytics.getService('ice_cream_app');
+// var googleAnalytics = googleAnalyticsService.getTracker("UA-75834706-2");
+// var googleAnalyticsConfig = false;
+// googleAnalyticsService.getConfig().addCallback(function (config) {
+//     googleAnalyticsConfig = config;
+// });
+
+//FIXME hackish.... fixme, please
+var googleAnalytics = {
+        sendEvent: function() {
+
+        },
+        sendAppView: function () {
+
+        }
+};
+
+var storageHelper = (function (localStorage) {
+
+    var self = {};
+
+    self.get = function (key, callback) {
+        var value = localStorage.getItem(key);
+        var payload = {};
+
+        if (value === "true" || value === "false") {
+            value = (value === "true") ? true:false;
+        }
+
+        payload[key] = value;
+        callback(payload);
+    }
+
+    self.set = function (data) {
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                localStorage.setItem(key, data[key]);
+            }
+        }
+    }
+
+    return self;
+})(localStorage);
 
 $(document).ready(function () {
     // translate to user-selected language
@@ -15,10 +52,10 @@ $(document).ready(function () {
     // alternative - window.navigator.appVersion.match(/Chrome\/([0-9.]*)/)[1];
     GUI.log('Running - OS: <strong>' + GUI.operating_system + '</strong>, ' +
         'Chrome: <strong>' + window.navigator.appVersion.replace(/.*Chrome\/([0-9.]*).*/, "$1") + '</strong>, ' +
-        'Configurator: <strong>' + chrome.runtime.getManifest().version + '</strong>');
+        'Configurator: <strong>' + application.getVersion() + '</strong>');
 
-    $('#status-bar .version').text(chrome.runtime.getManifest().version);
-    $('#logo .version').text(chrome.runtime.getManifest().version);
+    $('#status-bar .version').text(application.getVersion());
+    $('#logo .version').text(application.getVersion());
 
     // notification messages for various operating systems
     switch (GUI.operating_system) {
@@ -43,11 +80,10 @@ $(document).ready(function () {
         GUI.log('You are using an old version of ' + chrome.runtime.getManifest().name + '. There may be a more recent version with improvements and fixes.');
     }
 
-    chrome.storage.local.get('logopen', function (result) {
-        if (result.logopen) {
-            $("#showlog").trigger('click');
-         }
-    });
+    var doOpenLog = localStorage.getItem('logopen');
+    if (doOpenLog) {
+        $("#showlog").trigger('click');
+    }
 
 
     // log webgl capability
@@ -200,7 +236,7 @@ $(document).ready(function () {
                 localize();
 
                 // if notifications are enabled, or wasn't set, check the notifications checkbox
-                chrome.storage.local.get('update_notify', function (result) {
+                storageHelper.get('update_notify', function (result) {
                     if (typeof result.update_notify === 'undefined' || result.update_notify) {
                         $('div.notifications input').prop('checked', true);
                     }
@@ -210,7 +246,7 @@ $(document).ready(function () {
                     var check = $(this).is(':checked');
                     googleAnalytics.sendEvent('Settings', 'Notifications', check);
 
-                    chrome.storage.local.set({'update_notify': check});
+                    storageHelper.set({'update_notify': check});
                 });
 
                 // if tracking is enabled, check the statistics checkbox
@@ -328,7 +364,7 @@ $(document).ready(function () {
         $("#content").removeClass('logopen');
         $(".tab_container").removeClass('logopen');
         $("#scrollicon").removeClass('active');
-        chrome.storage.local.set({'logopen': false});
+        storageHelper.set({'logopen': false});
 
         state = false;
     }else{
@@ -337,7 +373,7 @@ $(document).ready(function () {
         $("#content").addClass('logopen');
         $(".tab_container").addClass('logopen');
         $("#scrollicon").addClass('active');
-        chrome.storage.local.set({'logopen': true});
+        storageHelper.set({'logopen': true});
 
         state = true;
     }

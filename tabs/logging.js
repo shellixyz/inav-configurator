@@ -101,7 +101,7 @@ TABS.logging.initialize = function (callback) {
             }
         });
 
-        chrome.storage.local.get('logging_file_entry', function (result) {
+        storageHelper.get('logging_file_entry', function (result) {
             if (result.logging_file_entry) {
                 chrome.fileSystem.restoreEntry(result.logging_file_entry, function (entry) {
                     fileEntry = entry;
@@ -252,7 +252,7 @@ TABS.logging.initialize = function (callback) {
                         fileEntry = fileEntryWritable;
 
                         // save entry for next use
-                        chrome.storage.local.set({'logging_file_entry': chrome.fileSystem.retainEntry(fileEntry)});
+                        storageHelper.set({'logging_file_entry': chrome.fileSystem.retainEntry(fileEntry)});
 
                         // reset sample counter in UI
                         $('.samples').text(0);

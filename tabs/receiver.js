@@ -60,7 +60,7 @@ TABS.receiver.initialize = function (callback) {
             $('.tunings .yaw_rate input[name="yaw_expo"]').hide();
         }
 
-        chrome.storage.local.get('rx_refresh_rate', function (result) {
+        storageHelper.get('rx_refresh_rate', function (result) {
             if (result.rx_refresh_rate) {
                 $('select[name="rx_refresh_rate"]').val(result.rx_refresh_rate).change();
             } else {
@@ -383,7 +383,7 @@ TABS.receiver.initialize = function (callback) {
             var plot_update_rate = parseInt($(this).val(), 10);
 
             // save update rate
-            chrome.storage.local.set({'rx_refresh_rate': plot_update_rate});
+            storageHelper.set({'rx_refresh_rate': plot_update_rate});
 
             function get_rc_data() {
                 MSP.send_message(MSP_codes.MSP_RC, false, false, update_ui);

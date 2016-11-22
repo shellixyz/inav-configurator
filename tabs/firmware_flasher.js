@@ -440,7 +440,8 @@ TABS.firmware_flasher.initialize = function (callback) {
             });
         });
 
-        chrome.storage.local.get('no_reboot_sequence', function (result) {
+        storageHelper.get('no_reboot_sequence', function (result) {
+
             if (result.no_reboot_sequence) {
                 $('input.updating').prop('checked', true);
                 $('.flash_on_connect_wrapper').show();
@@ -459,13 +460,13 @@ TABS.firmware_flasher.initialize = function (callback) {
                     $('.flash_on_connect_wrapper').hide();
                 }
 
-                chrome.storage.local.set({'no_reboot_sequence': status});
+                storageHelper.set({'no_reboot_sequence': status});
             });
 
             $('input.updating').change();
         });
 
-        chrome.storage.local.get('flash_manual_baud', function (result) {
+        storageHelper.get('flash_manual_baud', function (result) {
             if (result.flash_manual_baud) {
                 $('input.flash_manual_baud').prop('checked', true);
             } else {
@@ -475,25 +476,25 @@ TABS.firmware_flasher.initialize = function (callback) {
             // bind UI hook so the status is saved on change
             $('input.flash_manual_baud').change(function() {
                 var status = $(this).is(':checked');
-                chrome.storage.local.set({'flash_manual_baud': status});
+                storageHelper.set({'flash_manual_baud': status});
             });
 
             $('input.flash_manual_baud').change();
         });
 
-        chrome.storage.local.get('flash_manual_baud_rate', function (result) {
+        storageHelper.get('flash_manual_baud_rate', function (result) {
             $('#flash_manual_baud_rate').val(result.flash_manual_baud_rate);
 
             // bind UI hook so the status is saved on change
             $('#flash_manual_baud_rate').change(function() {
                 var baud = parseInt($('#flash_manual_baud_rate').val());
-                chrome.storage.local.set({'flash_manual_baud_rate': baud});
+                storageHelper.set({'flash_manual_baud_rate': baud});
             });
 
             $('input.flash_manual_baud_rate').change();
         });
 
-        chrome.storage.local.get('flash_on_connect', function (result) {
+        storageHelper.get('flash_on_connect', function (result) {
             if (result.flash_on_connect) {
                 $('input.flash_on_connect').prop('checked', true);
             } else {
@@ -530,11 +531,11 @@ TABS.firmware_flasher.initialize = function (callback) {
                     PortHandler.flush_callbacks();
                 }
 
-                chrome.storage.local.set({'flash_on_connect': status});
+                storageHelper.set({'flash_on_connect': status});
             }).change();
         });
 
-        chrome.storage.local.get('erase_chip', function (result) {
+        storageHelper.get('erase_chip', function (result) {
             if (result.erase_chip) {
                 $('input.erase_chip').prop('checked', true);
             } else {
@@ -543,7 +544,7 @@ TABS.firmware_flasher.initialize = function (callback) {
 
             // bind UI hook so the status is saved on change
             $('input.erase_chip').change(function () {
-                chrome.storage.local.set({'erase_chip': $(this).is(':checked')});
+                storageHelper.set({'erase_chip': $(this).is(':checked')});
             });
 
             $('input.erase_chip').change();

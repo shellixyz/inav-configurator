@@ -132,7 +132,7 @@ $(document).ready(function () {
             if (!GUI.connected_to && !GUI.connecting_to) $('select#baud').prop('disabled', false);
         }
 
-        chrome.storage.local.set({'auto_connect': GUI.auto_connect});
+        storageHelper.set({'auto_connect': GUI.auto_connect});
 
 
     });
@@ -152,15 +152,15 @@ function onOpen(openInfo) {
         GUI.log(i18n.getMessage('serialPortOpened', [openInfo.connectionId]));
 
         // save selected port with chrome.storage if the port differs
-        chrome.storage.local.get('last_used_port', function (result) {
+        storageHelper.get('last_used_port', function (result) {
             if (result.last_used_port) {
                 if (result.last_used_port != GUI.connected_to) {
                     // last used port doesn't match the one found in local db, we will store the new one
-                    chrome.storage.local.set({'last_used_port': GUI.connected_to});
+                    storageHelper.set({'last_used_port': GUI.connected_to});
                 }
             } else {
                 // variable isn't stored yet, saving
-                chrome.storage.local.set({'last_used_port': GUI.connected_to});
+                storageHelper.set({'last_used_port': GUI.connected_to});
             }
         });
 

@@ -16,6 +16,13 @@ var serial = {
         var self = this;
         self.openRequested = true;
 
+        //FIXME Hackish!
+        var port = new sp(path, {
+            baudRate: options.bitrate
+        });
+
+        console.log(port);
+
         chrome.serial.connect(path, options, function (connectionInfo) {
             if (chrome.runtime.lastError) {
                 console.error(chrome.runtime.lastError.message);
@@ -190,7 +197,7 @@ var serial = {
     getDevices: function (callback) {
         sp.list(function (errors, devices_array) {
             var devices = [];
-            console.log(devices_array);
+
             devices_array.forEach(function (device) {
                 devices.push(device.comName);
             });

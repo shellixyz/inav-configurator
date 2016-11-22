@@ -1772,5 +1772,6 @@
 	"pidTuningTPABreakPointHelp": {
 		"message": "Throttle PID Attenuation begins when Throttle position exceeds this value. "
 	},
-	"Hello": "Hello"
+	"Hello": "Hello",
+	"firmwareFlasherReleaseUrl": "firmwareFlasherReleaseUrl"
 }
