@@ -1,0 +1,23 @@
+{
+  "name": "inav-configurator",
+  "version": "2.0.0",
+  "description": "Electron version of INAV Configurator application",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/iNavFlight/inav-configurator",
+  "author": "INAVFlight",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "jquery": "2.1.4",
+    "jquery-ui": "1.12.1",
+    "i18n-2": "*",
+    "node-gyp": "*",
+    "serialport": "*"
+  },
+  "devDependencies": {
+    "electron": "^1.4.1",
+    "electron-rebuild": "^1.4.0"
+  }
+}

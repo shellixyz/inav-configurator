@@ -81,23 +81,23 @@ TABS.logging.initialize = function (callback) {
                             }, 1000);
 
                             $('.speed').prop('disabled', true);
-                            $(this).text(chrome.i18n.getMessage('loggingStop'));
+                            $(this).text(i18n.getMessage('loggingStop'));
                             $(this).data("clicks", !clicks);
                         } else {
-                            GUI.log(chrome.i18n.getMessage('loggingErrorOneProperty'));
+                            GUI.log(i18n.getMessage('loggingErrorOneProperty'));
                         }
                     } else {
                         GUI.interval_kill_all();
 
                         $('.speed').prop('disabled', false);
-                        $(this).text(chrome.i18n.getMessage('loggingStart'));
+                        $(this).text(i18n.getMessage('loggingStart'));
                         $(this).data("clicks", !clicks);
                     }
                 } else {
-                    GUI.log(chrome.i18n.getMessage('loggingErrorLogFile'));
+                    GUI.log(i18n.getMessage('loggingErrorLogFile'));
                 }
             } else {
-                GUI.log(chrome.i18n.getMessage('loggingErrorNotConnected'));
+                GUI.log(i18n.getMessage('loggingErrorNotConnected'));
             }
         });
 
@@ -283,7 +283,7 @@ TABS.logging.initialize = function (callback) {
 
             if (retaining) {
                 chrome.fileSystem.getDisplayPath(fileEntry, function (path) {
-                    GUI.log(chrome.i18n.getMessage('loggingAutomaticallyRetained', [path]));
+                    GUI.log(i18n.getMessage('loggingAutomaticallyRetained', [path]));
                 });
             }
 

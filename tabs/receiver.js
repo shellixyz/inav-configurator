@@ -77,10 +77,10 @@ TABS.receiver.initialize = function (callback) {
 
         // generate bars
         var bar_names = [
-                chrome.i18n.getMessage('controlAxisRoll'),
-                chrome.i18n.getMessage('controlAxisPitch'),
-                chrome.i18n.getMessage('controlAxisYaw'),
-                chrome.i18n.getMessage('controlAxisThrottle')
+                i18n.getMessage('controlAxisRoll'),
+                i18n.getMessage('controlAxisPitch'),
+                i18n.getMessage('controlAxisYaw'),
+                i18n.getMessage('controlAxisThrottle')
             ],
             bar_container = $('.tab-receiver .bars'),
             aux_index = 1;
@@ -90,7 +90,7 @@ TABS.receiver.initialize = function (callback) {
             if (i < bar_names.length) {
                 name = bar_names[i];
             } else {
-                name = chrome.i18n.getMessage("controlAxisAux" + (aux_index++));
+                name = i18n.getMessage("controlAxisAux" + (aux_index++));
             }
 
             bar_container.append('\
@@ -284,7 +284,7 @@ TABS.receiver.initialize = function (callback) {
 
         $('a.refresh').click(function () {
             MSP.send_message(MSP_codes.MSP_RC_TUNING, false, false, function () {
-                GUI.log(chrome.i18n.getMessage('receiverDataRefreshed'));
+                GUI.log(i18n.getMessage('receiverDataRefreshed'));
 
                 // fill in data from RC_tuning
                 $('.tunings .throttle input[name="mid"]').val(RC_tuning.throttle_MID.toFixed(2));
@@ -343,7 +343,7 @@ TABS.receiver.initialize = function (callback) {
 
             function save_to_eeprom() {
                 MSP.send_message(MSP_codes.MSP_EEPROM_WRITE, false, false, function () {
-                    GUI.log(chrome.i18n.getMessage('receiverEepromSaved'));
+                    GUI.log(i18n.getMessage('receiverEepromSaved'));
                 });
             }
 

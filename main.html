@@ -31,10 +31,30 @@
 <link type="text/css" rel="stylesheet" href="./css/dropdown-lists/css/style_lists.css" media="all" />
 <link type="text/css" rel="stylesheet" href="./js/libraries/switchery/switchery.css" media="all" />
 <link rel="stylesheet" type="text/css" href="./js/libraries/jbox/jBox.css" />
+
+<script>
+    window.$ = window.jQuery = require('jquery');
+
+    var i18n = new (require('i18n-2'))({
+        locales: ['en']
+    });
+
+    i18n.getMessage = function (string) {
+            return i18n.__(string).message;
+    };
+
+    var sp = require('serialport');
+
+    sp.list(function(err, ports) {
+        console.log(ports);
+    });
+
+    require('jquery-ui');
+
+</script>
+
 <script type="text/javascript" src="./js/libraries/q.js"></script>
-<script type="text/javascript" src="./js/libraries/google-analytics-bundle.js"></script>
-<script type="text/javascript" src="./js/libraries/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="./js/libraries/jquery-ui-1.11.4.min.js"></script>
+<!-- <script type="text/javascript" src="./js/libraries/google-analytics-bundle.js"></script> -->
 <script type="text/javascript" src="./js/libraries/d3.min.js"></script>
 <script type="text/javascript" src="./js/libraries/jquery.nouislider.all.min.js"></script>
 <script type="text/javascript" src="./js/libraries/three/three.min.js"></script>

@@ -113,10 +113,10 @@ TABS.failsafe.initialize = function (callback, scrollPosition) {
 
             // generate full channel list
             var channelNames = [
-                    chrome.i18n.getMessage('controlAxisRoll'),
-                    chrome.i18n.getMessage('controlAxisPitch'),
-                    chrome.i18n.getMessage('controlAxisYaw'),
-                    chrome.i18n.getMessage('controlAxisThrottle')
+                    i18n.getMessage('controlAxisRoll'),
+                    i18n.getMessage('controlAxisPitch'),
+                    i18n.getMessage('controlAxisYaw'),
+                    i18n.getMessage('controlAxisThrottle')
                 ],
                 fullChannels_e = $('div.activechannellist'),
                 aux_index = 1,
@@ -129,7 +129,7 @@ TABS.failsafe.initialize = function (callback, scrollPosition) {
                             <div class="channelprimary">\
                                 <span>' + channelNames[i] + '</span>\
                             </div>\
-                            <div class="cf_tip channelsetting" title="' + chrome.i18n.getMessage("failsafeChannelFallbackSettingsAuto") + '">\
+                            <div class="cf_tip channelsetting" title="' + i18n.getMessage("failsafeChannelFallbackSettingsAuto") + '">\
                                 <select class="aux_set" id="' + i + '">\
                                     <option value="0">Auto</option>\
                                     <option value="1">Hold</option>\
@@ -141,10 +141,10 @@ TABS.failsafe.initialize = function (callback, scrollPosition) {
                     fullChannels_e.append('\
                         <div class="number">\
                             <div class="channelauxiliary">\
-                                <span class="channelname">' + chrome.i18n.getMessage("controlAxisAux" + (aux_index++)) + '</span>\
+                                <span class="channelname">' + i18n.getMessage("controlAxisAux" + (aux_index++)) + '</span>\
                                 ' + auxAssignment[aux_assignment_index++] + '\
                             </div>\
-                            <div class="cf_tip channelsetting" title="' + chrome.i18n.getMessage("failsafeChannelFallbackSettingsHold") + '">\
+                            <div class="cf_tip channelsetting" title="' + i18n.getMessage("failsafeChannelFallbackSettingsHold") + '">\
                                 <select class="aux_set" id="' + i + '">\
                                     <option value="1">Hold</option>\
                                     <option value="2">Set</option>\
@@ -339,7 +339,7 @@ TABS.failsafe.initialize = function (callback, scrollPosition) {
             }
 
             function reboot() {
-                GUI.log(chrome.i18n.getMessage('configurationEepromSaved'));
+                GUI.log(i18n.getMessage('configurationEepromSaved'));
 
                 GUI.tab_switch_cleanup(function() {
                     MSP.send_message(MSP_codes.MSP_SET_REBOOT, false, false, reinitialize);
@@ -347,7 +347,7 @@ TABS.failsafe.initialize = function (callback, scrollPosition) {
             }
 
             function reinitialize() {
-                GUI.log(chrome.i18n.getMessage('deviceRebooting'));
+                GUI.log(i18n.getMessage('deviceRebooting'));
 
                 if (BOARD.find_board_definition(CONFIG.boardIdentifier).vcp) { // VCP-based flight controls may crash old drivers, we catch and reconnect
                     $('a.connect').click();
@@ -358,7 +358,7 @@ TABS.failsafe.initialize = function (callback, scrollPosition) {
 
                     GUI.timeout_add('waiting_for_bootup', function waiting_for_bootup() {
                         MSP.send_message(MSP_codes.MSP_IDENT, false, false, function () {
-                            GUI.log(chrome.i18n.getMessage('deviceReady'));
+                            GUI.log(i18n.getMessage('deviceReady'));
                             TABS.failsafe.initialize(false, $('#content').scrollTop());
                         });
                     },1500); // 1500 ms seems to be just the right amount of delay to prevent data request timeouts

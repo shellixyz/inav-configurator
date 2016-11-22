@@ -292,7 +292,7 @@ var MSP = {
                 sensor_status(CONFIG.activeSensors);
                 $('span.i2c-error').text(CONFIG.i2cError);
                 $('span.cycle-time').text(CONFIG.cycleTime);
-                $('span.cpu-load').text(chrome.i18n.getMessage('statusbar_cpu_load', [CONFIG.cpuload]));
+                $('span.cpu-load').text(i18n.getMessage('statusbar_cpu_load', [CONFIG.cpuload]));
                 break;
 
             case MSP_codes.MSP_RAW_IMU:

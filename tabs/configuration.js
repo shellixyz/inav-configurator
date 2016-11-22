@@ -781,7 +781,7 @@ TABS.configuration.initialize = function (callback, scrollPosition) {
             }
 
             function reboot() {
-                GUI.log(chrome.i18n.getMessage('configurationEepromSaved'));
+                GUI.log(i18n.getMessage('configurationEepromSaved'));
 
                 GUI.tab_switch_cleanup(function() {
                     MSP.send_message(MSP_codes.MSP_SET_REBOOT, false, false, reinitialize);
@@ -789,7 +789,7 @@ TABS.configuration.initialize = function (callback, scrollPosition) {
             }
 
             function reinitialize() {
-                GUI.log(chrome.i18n.getMessage('deviceRebooting'));
+                GUI.log(i18n.getMessage('deviceRebooting'));
 
                 if (BOARD.find_board_definition(CONFIG.boardIdentifier).vcp) { // VCP-based flight controls may crash old drivers, we catch and reconnect
                     $('a.connect').click();
@@ -800,7 +800,7 @@ TABS.configuration.initialize = function (callback, scrollPosition) {
 
                     GUI.timeout_add('waiting_for_bootup', function waiting_for_bootup() {
                         MSP.send_message(MSP_codes.MSP_IDENT, false, false, function () {
-                            GUI.log(chrome.i18n.getMessage('deviceReady'));
+                            GUI.log(i18n.getMessage('deviceReady'));
                             TABS.configuration.initialize(false, $('#content').scrollTop());
                         });
                     },1500); // 1500 ms seems to be just the right amount of delay to prevent data request timeouts

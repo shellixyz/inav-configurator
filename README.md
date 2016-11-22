@@ -10,7 +10,7 @@ Various types of aircraft are supported by the tool and by INAV, e.g. quadcopter
 
 ## Authors
 
-Konstantin Sharlaimov/DigitalEntity - maintainer of the INAV firmware and configurator. 
+Konstantin Sharlaimov/DigitalEntity - maintainer of the INAV firmware and configurator.
 
 INAV Configurator was originally a [fork](#credits) of Cleanflight Configurator with support for INAV instead of Cleanflight.
 
@@ -62,9 +62,15 @@ For Cleanflight firmware issues raise them here
 
 https://github.com/iNavFlight/inav/issues
 
-## Technical details
+## Serial port
 
-The configurator is based on chrome.serial API running on Google Chrome/Chromium core.
+cd node_modules/serialport/
+../node-gyp/bin/node-gyp.js rebuild --target=`npm view electron version` --arch=x64 --dist http://atom.io/download/atom-shell
+
+
+## Run
+
+`npm start`
 
 ## Developers
 

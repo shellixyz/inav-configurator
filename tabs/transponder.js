@@ -69,7 +69,7 @@ TABS.transponder.initialize = function (callback, scrollPosition) {
                 var expectedLength = TRANSPONDER.data.length;
                 var hexRegExp = new RegExp('[0-9a-fA-F]{' + (expectedLength * 2) + '}', 'gi');
                 if (!dataString.match(hexRegExp)) {
-                    GUI.log(chrome.i18n.getMessage('transponderDataInvalid')); 
+                    GUI.log(i18n.getMessage('transponderDataInvalid')); 
                     return;
                 }
                 
@@ -84,7 +84,7 @@ TABS.transponder.initialize = function (callback, scrollPosition) {
                 }
                 function save_to_eeprom() {
                     MSP.send_message(MSP_codes.MSP_EEPROM_WRITE, false, false, function () {
-                        GUI.log(chrome.i18n.getMessage('transponderEepromSaved')); 
+                        GUI.log(i18n.getMessage('transponderEepromSaved')); 
                     });
                 }
                 

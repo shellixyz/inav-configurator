@@ -76,17 +76,17 @@ $(document).ready(function () {
             var tabName = $(self).text();
 
             if (tabRequiresConnection && !CONFIGURATOR.connectionValid) {
-                GUI.log(chrome.i18n.getMessage('tabSwitchConnectionRequired'));
+                GUI.log(i18n.getMessage('tabSwitchConnectionRequired'));
                 return;
             }
 
             if (GUI.connect_lock) { // tab switching disabled while operation is in progress
-                GUI.log(chrome.i18n.getMessage('tabSwitchWaitForOperation'));
+                GUI.log(i18n.getMessage('tabSwitchWaitForOperation'));
                 return;
             }
 
             if (GUI.allowedTabs.indexOf(tab) < 0) {
-                GUI.log(chrome.i18n.getMessage('tabSwitchUpgradeRequired', [tabName]));
+                GUI.log(i18n.getMessage('tabSwitchUpgradeRequired', [tabName]));
                 return;
             }
 
@@ -351,7 +351,7 @@ $(document).ready(function () {
     profile_e.change(function () {
         var profile = parseInt($(this).val());
         MSP.send_message(MSP_codes.MSP_SELECT_SETTING, [profile], false, function () {
-            GUI.log(chrome.i18n.getMessage('pidTuningLoadedProfile', [profile + 1]));
+            GUI.log(i18n.getMessage('pidTuningLoadedProfile', [profile + 1]));
             updateActivatedTab();
         });
     });

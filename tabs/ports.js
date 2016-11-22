@@ -37,7 +37,7 @@ TABS.ports.initialize = function (callback, scrollPosition) {
     }
 
     for (var i = 0; i < functionRules.length; i++) {
-        functionRules[i].displayName = chrome.i18n.getMessage('portsFunction_' + functionRules[i].name);
+        functionRules[i].displayName = i18n.getMessage('portsFunction_' + functionRules[i].name);
     }
 
     var mspBaudRates = [
@@ -195,7 +195,7 @@ TABS.ports.initialize = function (callback, scrollPosition) {
                         if (select_e.size() == 0) {
                             functions_e.prepend('<span class="function"><select name="' + selectElementName + '" /></span>');
                             select_e = functions_e.find(selectElementSelector);
-                            var disabledText = chrome.i18n.getMessage('portsTelemetryDisabled');
+                            var disabledText = i18n.getMessage('portsTelemetryDisabled');
                             select_e.append('<option value="">' + disabledText + '</option>');
                         }
                         select_e.append('<option value="' + functionName + '">' + functionRule.displayName + '</option>');
@@ -265,7 +265,7 @@ TABS.ports.initialize = function (callback, scrollPosition) {
         }
 
         function on_saved_handler() {
-            GUI.log(chrome.i18n.getMessage('configurationEepromSaved'));
+            GUI.log(i18n.getMessage('configurationEepromSaved'));
 
             GUI.tab_switch_cleanup(function() {
                 MSP.send_message(MSP_codes.MSP_SET_REBOOT, false, false, on_reboot_success_handler);
@@ -273,7 +273,7 @@ TABS.ports.initialize = function (callback, scrollPosition) {
         }
 
         function on_reboot_success_handler() {
-            GUI.log(chrome.i18n.getMessage('deviceRebooting'));
+            GUI.log(i18n.getMessage('deviceRebooting'));
 
             if (BOARD.find_board_definition(CONFIG.boardIdentifier).vcp) { // VCP-based flight controls may crash old drivers, we catch and reconnect
                 $('a.connect').click();
@@ -283,7 +283,7 @@ TABS.ports.initialize = function (callback, scrollPosition) {
             } else {
                 GUI.timeout_add('waiting_for_bootup', function waiting_for_bootup() {
                     MSP.send_message(MSP_codes.MSP_IDENT, false, false, function () {
-                        GUI.log(chrome.i18n.getMessage('deviceReady'));
+                        GUI.log(i18n.getMessage('deviceReady'));
                         TABS.ports.initialize(false, $('#content').scrollTop());
                     });
                },  1500); // seems to be just the right amount of delay to prevent data request timeouts

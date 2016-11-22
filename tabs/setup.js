@@ -35,24 +35,24 @@ TABS.setup.initialize = function (callback) {
         localize();
 
         if (semver.gte(CONFIG.flightControllerVersion, '1.4.0') && !FC.isMotorOutputEnabled()) {
-            GUI_control.prototype.log("<span style='color: red; font-weight: bolder'><strong>" + chrome.i18n.getMessage("logPwmOutputDisabled") + "</strong></span>");
+            GUI_control.prototype.log("<span style='color: red; font-weight: bolder'><strong>" + i18n.getMessage("logPwmOutputDisabled") + "</strong></span>");
         }
 
         if (semver.lt(CONFIG.apiVersion, CONFIGURATOR.backupRestoreMinApiVersionAccepted)) {
             $('#content .backup').addClass('disabled');
             $('#content .restore').addClass('disabled');
 
-            GUI.log(chrome.i18n.getMessage('initialSetupBackupAndRestoreApiVersion', [CONFIG.apiVersion, CONFIGURATOR.backupRestoreMinApiVersionAccepted]));
+            GUI.log(i18n.getMessage('initialSetupBackupAndRestoreApiVersion', [CONFIG.apiVersion, CONFIGURATOR.backupRestoreMinApiVersionAccepted]));
         }
         // initialize 3D
         self.initialize3D();
 
 		// set roll in interactive block
-        $('span.roll').text(chrome.i18n.getMessage('initialSetupAttitude', [0]));
+        $('span.roll').text(i18n.getMessage('initialSetupAttitude', [0]));
 		// set pitch in interactive block
-        $('span.pitch').text(chrome.i18n.getMessage('initialSetupAttitude', [0]));
+        $('span.pitch').text(i18n.getMessage('initialSetupAttitude', [0]));
         // set heading in interactive block
-        $('span.heading').text(chrome.i18n.getMessage('initialSetupAttitude', [0]));
+        $('span.heading').text(i18n.getMessage('initialSetupAttitude', [0]));
 
 
         // check if we have magnetometer
@@ -74,7 +74,7 @@ TABS.setup.initialize = function (callback) {
                 // until this operation finishes, sending more commands through data_poll() will result in serial buffer overflow
                 GUI.interval_pause('setup_data_pull');
                 MSP.send_message(MSP_codes.MSP_ACC_CALIBRATION, false, false, function () {
-                    GUI.log(chrome.i18n.getMessage('initialSetupAccelCalibStarted'));
+                    GUI.log(i18n.getMessage('initialSetupAccelCalibStarted'));
                     $('#accel_calib_running').show();
                     $('#accel_calib_rest').hide();
                 });
@@ -82,7 +82,7 @@ TABS.setup.initialize = function (callback) {
                 GUI.timeout_add('button_reset', function () {
                     GUI.interval_resume('setup_data_pull');
 
-                    GUI.log(chrome.i18n.getMessage('initialSetupAccelCalibEnded'));
+                    GUI.log(i18n.getMessage('initialSetupAccelCalibEnded'));
 
                     self.removeClass('calibrating');
                     $('#accel_calib_running').hide();
@@ -98,13 +98,13 @@ TABS.setup.initialize = function (callback) {
                 self.addClass('calibrating');
 
                 MSP.send_message(MSP_codes.MSP_MAG_CALIBRATION, false, false, function () {
-                    GUI.log(chrome.i18n.getMessage('initialSetupMagCalibStarted'));
+                    GUI.log(i18n.getMessage('initialSetupMagCalibStarted'));
                     $('#mag_calib_running').show();
                     $('#mag_calib_rest').hide();
                 });
 
                 GUI.timeout_add('button_reset', function () {
-                    GUI.log(chrome.i18n.getMessage('initialSetupMagCalibEnded'));
+                    GUI.log(i18n.getMessage('initialSetupMagCalibEnded'));
                     self.removeClass('calibrating');
                     $('#mag_calib_running').hide();
                     $('#mag_calib_rest').show();
@@ -114,7 +114,7 @@ TABS.setup.initialize = function (callback) {
 
         $('a.resetSettings').click(function () {
             MSP.send_message(MSP_codes.MSP_RESET_CONF, false, false, function () {
-                GUI.log(chrome.i18n.getMessage('initialSetupSettingsRestored'));
+                GUI.log(i18n.getMessage('initialSetupSettingsRestored'));
 
                 GUI.tab_switch_cleanup(function () {
                     TABS.setup.initialize();
@@ -123,12 +123,12 @@ TABS.setup.initialize = function (callback) {
         });
 
         // display current yaw fix value (important during tab re-initialization)
-        $('div#interactive_block > a.reset').text(chrome.i18n.getMessage('initialSetupButtonResetZaxisValue', [self.yaw_fix]));
+        $('div#interactive_block > a.reset').text(i18n.getMessage('initialSetupButtonResetZaxisValue', [self.yaw_fix]));
 
         // reset yaw button hook
         $('div#interactive_block > a.reset').click(function () {
             self.yaw_fix = SENSOR_DATA.kinematics[2] * - 1.0;
-            $(this).text(chrome.i18n.getMessage('initialSetupButtonResetZaxisValue', [self.yaw_fix]));
+            $(this).text(i18n.getMessage('initialSetupButtonResetZaxisValue', [self.yaw_fix]));
 
             console.log('YAW reset to 0 deg, fix: ' + self.yaw_fix + ' deg');
         });
@@ -138,7 +138,7 @@ TABS.setup.initialize = function (callback) {
                 return;
             }
             configuration_backup(function () {
-                GUI.log(chrome.i18n.getMessage('initialSetupBackupSuccess'));
+                GUI.log(i18n.getMessage('initialSetupBackupSuccess'));
                 googleAnalytics.sendEvent('Configuration', 'Backup', 'true');
             });
         });
@@ -148,7 +148,7 @@ TABS.setup.initialize = function (callback) {
                 return;
             }
             configuration_restore(function () {
-                GUI.log(chrome.i18n.getMessage('initialSetupRestoreSuccess'));
+                GUI.log(i18n.getMessage('initialSetupRestoreSuccess'));
                 googleAnalytics.sendEvent('Configuration', 'Restore', 'true');
 
                 // get latest settings
@@ -173,19 +173,19 @@ TABS.setup.initialize = function (callback) {
             MSP.send_message(MSP_codes.MSP_STATUS);
 
             MSP.send_message(MSP_codes.MSP_ANALOG, false, false, function () {
-                bat_voltage_e.text(chrome.i18n.getMessage('initialSetupBatteryValue', [ANALOG.voltage]));
-                bat_mah_drawn_e.text(chrome.i18n.getMessage('initialSetupBatteryMahValue', [ANALOG.mAhdrawn]));
-                bat_mah_drawing_e.text(chrome.i18n.getMessage('initialSetupBatteryAValue', [ANALOG.amperage.toFixed(2)]));
-                rssi_e.text(chrome.i18n.getMessage('initialSetupRSSIValue', [((ANALOG.rssi / 1023) * 100).toFixed(0)]));
+                bat_voltage_e.text(i18n.getMessage('initialSetupBatteryValue', [ANALOG.voltage]));
+                bat_mah_drawn_e.text(i18n.getMessage('initialSetupBatteryMahValue', [ANALOG.mAhdrawn]));
+                bat_mah_drawing_e.text(i18n.getMessage('initialSetupBatteryAValue', [ANALOG.amperage.toFixed(2)]));
+                rssi_e.text(i18n.getMessage('initialSetupRSSIValue', [((ANALOG.rssi / 1023) * 100).toFixed(0)]));
             });
 
             if (have_sensor(CONFIG.activeSensors, 'gps')) {
                 MSP.send_message(MSP_codes.MSP_RAW_GPS, false, false, function () {
-                    var gpsFixType = chrome.i18n.getMessage('gpsFixNone');
+                    var gpsFixType = i18n.getMessage('gpsFixNone');
                     if (GPS_DATA.fix >= 2)
-                        gpsFixType = chrome.i18n.getMessage('gpsFix3D');
+                        gpsFixType = i18n.getMessage('gpsFix3D');
                     else if (GPS_DATA.fix >= 1)
-                        gpsFixType = chrome.i18n.getMessage('gpsFix2D');
+                        gpsFixType = i18n.getMessage('gpsFix2D');
                     gpsFix_e.html(gpsFixType);
                     gpsSats_e.text(GPS_DATA.numSat);
                     gpsLat_e.text((GPS_DATA.lat / 10000000).toFixed(4) + ' deg');
@@ -196,9 +196,9 @@ TABS.setup.initialize = function (callback) {
 
         function get_fast_data() {
             MSP.send_message(MSP_codes.MSP_ATTITUDE, false, false, function () {
-	            roll_e.text(chrome.i18n.getMessage('initialSetupAttitude', [SENSOR_DATA.kinematics[0]]));
-	            pitch_e.text(chrome.i18n.getMessage('initialSetupAttitude', [SENSOR_DATA.kinematics[1]]));
-                heading_e.text(chrome.i18n.getMessage('initialSetupAttitude', [SENSOR_DATA.kinematics[2]]));
+	            roll_e.text(i18n.getMessage('initialSetupAttitude', [SENSOR_DATA.kinematics[0]]));
+	            pitch_e.text(i18n.getMessage('initialSetupAttitude', [SENSOR_DATA.kinematics[1]]));
+                heading_e.text(i18n.getMessage('initialSetupAttitude', [SENSOR_DATA.kinematics[2]]));
                 self.render3D();
                 self.updateInstruments();
             });

@@ -63,20 +63,18 @@ PortHandler.check = function () {
 
             // auto-select last used port (only during initialization)
             if (!self.initial_ports) {
-                chrome.storage.local.get('last_used_port', function (result) {
-                    // if last_used_port was set, we try to select it
-                    if (result.last_used_port) {
-                        current_ports.forEach(function(port) {
-                            if (port == result.last_used_port) {
-                                console.log('Selecting last used port: ' + result.last_used_port);
+                var lastUsedPort = localStorage.getItem('last_used_port');
+                if (lastUsedPort) {
+                    current_ports.forEach(function(port) {
+                        if (port == result.last_used_port) {
+                            console.log('Selecting last used port: ' + result.last_used_port);
 
-                                $('div#port-picker #port').val(result.last_used_port);
-                            }
-                        });
-                    } else {
-                        console.log('Last used port wasn\'t saved "yet", auto-select disabled.');
-                    }
-                });
+                            $('div#port-picker #port').val(result.last_used_port);
+                        }
+                    });
+                } else {
+                    console.log('Last used port wasn\'t saved "yet", auto-select disabled.');
+                }
             }
 
             if (!self.initial_ports) {
@@ -146,6 +144,7 @@ PortHandler.check = function () {
 };
 
 PortHandler.check_usb_devices = function (callback) {
+    /*
     chrome.usb.getDevices(usbDevices.STM32DFU, function (result) {
         if (result.length) {
             if (!$("div#port-picker #port [value='DFU']").length) {
@@ -162,6 +161,7 @@ PortHandler.check_usb_devices = function (callback) {
 
         if(callback) callback(self.dfu_available);
     });
+    */
 };
 
 PortHandler.update_port_select = function (ports) {

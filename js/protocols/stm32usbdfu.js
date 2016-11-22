@@ -118,16 +118,16 @@ STM32DFU_protocol.prototype.openDevice = function (device) {
     chrome.usb.openDevice(device, function (handle) {
         if(self.checkChromeError()) {
             console.log('Failed to open USB device!');
-            GUI.log(chrome.i18n.getMessage('usbDeviceOpenFail'));
+            GUI.log(i18n.getMessage('usbDeviceOpenFail'));
             if(GUI.operating_system === 'Linux') {
-                GUI.log(chrome.i18n.getMessage('usbDeviceUdevNotice'));
+                GUI.log(i18n.getMessage('usbDeviceUdevNotice'));
             }
             return;
         }
 
         self.handle = handle;
 
-        GUI.log(chrome.i18n.getMessage('usbDeviceOpened', handle.handle.toString()));
+        GUI.log(i18n.getMessage('usbDeviceOpened', handle.handle.toString()));
         console.log('Device opened with Handle ID: ' + handle.handle);
         self.claimInterface(0);
     });
@@ -139,10 +139,10 @@ STM32DFU_protocol.prototype.closeDevice = function () {
     chrome.usb.closeDevice(this.handle, function closed() {
         if(self.checkChromeError()) {
             console.log('Failed to close USB device!');
-            GUI.log(chrome.i18n.getMessage('usbDeviceCloseFail'));
+            GUI.log(i18n.getMessage('usbDeviceCloseFail'));
         }
 
-        GUI.log(chrome.i18n.getMessage('usbDeviceClosed'));
+        GUI.log(i18n.getMessage('usbDeviceClosed'));
         console.log('Device closed with Handle ID: ' + self.handle.handle);
 
         self.handle = null;
@@ -450,10 +450,10 @@ STM32DFU_protocol.prototype.upload_procedure = function (step) {
                     self.flash_layout = flash;
                     self.available_flash_size = flash.total_size - (self.hex.start_linear_address - flash.start_address);
 
-                    GUI.log(chrome.i18n.getMessage('dfu_device_flash_info', (flash.total_size / 1024).toString()));
+                    GUI.log(i18n.getMessage('dfu_device_flash_info', (flash.total_size / 1024).toString()));
 
                     if (self.hex.bytes_total > self.available_flash_size) {
-                        GUI.log(chrome.i18n.getMessage('dfu_error_image_size', 
+                        GUI.log(i18n.getMessage('dfu_error_image_size', 
                             [(self.hex.bytes_total / 1024.0).toFixed(1), 
                             (self.available_flash_size / 1024.0).toFixed(1)]));
                         self.upload_procedure(99);
@@ -546,7 +546,7 @@ STM32DFU_protocol.prototype.upload_procedure = function (step) {
 
                                             if(page == erase_pages.length) {
                                                 console.log("Erase: complete");
-                                                GUI.log(chrome.i18n.getMessage('dfu_erased_kilobytes', (total_erased / 1024).toString()));
+                                                GUI.log(i18n.getMessage('dfu_erased_kilobytes', (total_erased / 1024).toString()));
                                                 self.upload_procedure(4);
                                             }
                                             else

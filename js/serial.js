@@ -83,7 +83,7 @@ var serial = {
                                                 console.log('SERIAL: Connection did not recover from ' + self.error + ' condition, disconnecting');
                                                 GUI.log('Unrecoverable <span style="color: red">failure</span> of serial connection, disconnecting...');
                                                 googleAnalytics.sendException('Serial: ' + self.error + ' - unrecoverable', false);
-    
+
                                                 if (GUI.connected_to || GUI.connecting_to) {
                                                     $('a.connect').click();
                                                 } else {
@@ -99,11 +99,11 @@ var serial = {
                                 });
                             }, 50);
                             break;
-                            
+
                         case 'timeout':
                             // TODO
                             break;
-                            
+
                         case 'device_lost':
                             if (GUI.connected_to || GUI.connecting_to) {
                                 $('a.connect').click();
@@ -111,7 +111,7 @@ var serial = {
                                 self.disconnect();
                             }
                             break;
-                            
+
                         case 'disconnected':
                             // TODO
                             break;
@@ -188,10 +188,11 @@ var serial = {
         }
     },
     getDevices: function (callback) {
-        chrome.serial.getDevices(function (devices_array) {
+        sp.list(function (errors, devices_array) {
             var devices = [];
+            console.log(devices_array);
             devices_array.forEach(function (device) {
-                devices.push(device.path);
+                devices.push(device.comName);
             });
 
             callback(devices);

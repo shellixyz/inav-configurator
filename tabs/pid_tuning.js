@@ -267,7 +267,7 @@ TABS.pid_tuning.initialize = function (callback) {
 
         $('a.refresh').click(function () {
             GUI.tab_switch_cleanup(function () {
-                GUI.log(chrome.i18n.getMessage('pidTuningDataRefreshed'));
+                GUI.log(i18n.getMessage('pidTuningDataRefreshed'));
                 TABS.pid_tuning.initialize();
             });
         });
@@ -313,7 +313,7 @@ TABS.pid_tuning.initialize = function (callback) {
 
             function save_to_eeprom() {
                 MSP.send_message(MSP_codes.MSP_EEPROM_WRITE, false, false, function () {
-                    GUI.log(chrome.i18n.getMessage('pidTuningEepromSaved'));
+                    GUI.log(i18n.getMessage('pidTuningEepromSaved'));
                 });
             }
 

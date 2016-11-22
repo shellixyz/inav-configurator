@@ -557,7 +557,7 @@ TABS.led_strip.initialize = function (callback, scrollPosition) {
             
             function save_to_eeprom() {
                 MSP.send_message(MSP_codes.MSP_EEPROM_WRITE, false, false, function() {
-                    GUI.log(chrome.i18n.getMessage('ledStripEepromSaved'));
+                    GUI.log(i18n.getMessage('ledStripEepromSaved'));
                 });
             }
 

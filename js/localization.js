@@ -6,7 +6,7 @@ function localize() {
     var translate = function(messageID) {
         localized++;
 
-        return chrome.i18n.getMessage(messageID);
+        return i18n.getMessage(messageID);
     };
 
     $('[i18n]:not(.i18n-replaced').each(function() {

@@ -48,11 +48,11 @@ TABS.gps.initialize = function (callback) {
             var lon = GPS_DATA.lon / 10000000;
             var url = 'https://maps.google.com/?q=' + lat + ',' + lon;
 
-            var gpsFixType = chrome.i18n.getMessage('gpsFixNone');
+            var gpsFixType = i18n.getMessage('gpsFixNone');
             if (GPS_DATA.fix >= 2)
-                gpsFixType = chrome.i18n.getMessage('gpsFix3D');
+                gpsFixType = i18n.getMessage('gpsFix3D');
             else if (GPS_DATA.fix >= 1)
-                gpsFixType = chrome.i18n.getMessage('gpsFix2D');
+                gpsFixType = i18n.getMessage('gpsFix2D');
 
             $('.GPS_info td.fix').html(gpsFixType);
             $('.GPS_info td.alt').text(GPS_DATA.alt + ' m');
