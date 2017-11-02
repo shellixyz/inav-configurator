@@ -2248,6 +2248,18 @@
     "osdElement_VTX_CHANNEL_HELP": {
         "message": "Shows the current band and channel of the VTX. Requires either a VTX with SmartAudio or Tramp or either a VTX integrated in the flight controller."
     },
+    "osdElement_WIND_SPEED_HORIZONTAL": {
+        "message": "Horizontal Wind Speed"
+    },
+    "osdElement_WIND_SPEED_HORIZONTAL_HELP": {
+        "message": "Shows estimated horizontal wind speed and direction."
+    },
+    "osdElement_WIND_SPEED_VERTICAL": {
+        "message": "Vertical Wind Speed"
+    },
+    "osdElement_WIND_SPEED_VERTICAL_HELP": {
+        "message": "Shows estimated vertical wind speed and direction (up or down)."
+    },
     "portColumnSensors": {
         "message": "Sensors"
     }

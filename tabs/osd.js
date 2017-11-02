@@ -7,7 +7,7 @@ SYM.RSSI = 0x01;
 SYM.AH_RIGHT = 0x02;
 SYM.AH_LEFT = 0x03;
 SYM.THR = 0x04;
-SYM.THR1 = 0x05;
+SYM.AH_DECORATION_UP = 5;
 SYM.FLY_M = 0x9C;
 SYM.ON_M = 0x9B;
 SYM.AH_CENTER_LINE = 0x26;
@@ -17,6 +17,7 @@ SYM.AH_BAR9_0 = 0x80;
 SYM.AH_DECORATION = 0x13;
 SYM.AMP = 0x9A;
 SYM.MAH = 0x07;
+SYM.DIR_SMALL = 114;
 SYM.MAH_KM_0 = 157;
 SYM.MAH_KM_1 = 158;
 SYM.GPS_SAT1 = 0x1E;
@@ -25,6 +26,8 @@ SYM.GPS_HDP1 = 0xBD;
 SYM.GPS_HDP2 = 0xBE;
 SYM.KMH = 161;
 SYM.MPH = 176;
+SYM.WIND_SPEED_HORIZONTAL = 171;
+SYM.WIND_SPEED_VERTICAL = 172;
 SYM.ALT_M = 177;
 SYM.ALT_FT = 179;
 SYM.LAT = 0xA6;
@@ -646,6 +649,38 @@ OSD.constants = {
                     id: 31,
                     min_version: '1.7.4',
                     preview: FONT.symbol(SYM.GPS_HDP1) + FONT.symbol(SYM.GPS_HDP2) + FONT.embed_dot('1.8')
+                },
+                {
+                    name: 'WIND_SPEED_HORIZONTAL',
+                    id: 36,
+                    min_version: '1.8.1',
+                    preview: function(osd_data) {
+                        // 6 chars
+                        var p = FONT.symbol(SYM.WIND_SPEED_HORIZONTAL) + FONT.symbol(SYM.DIR_SMALL + 1);
+                        if (OSD.data.unit_mode === 0 || OSD.data.unit_mode === 2) {
+                            // Imperial
+                            p += FONT.embed_dot('3.27') + FONT.symbol(SYM.MPH);
+                        } else {
+                            p += FONT.embed_dot('5.27') + FONT.symbol(SYM.KMH);
+                        }
+                        return p;
+                    }
+                },
+                {
+                    name: 'WIND_SPEED_VERTICAL',
+                    id: 37,
+                    min_version: '1.8.1',
+                    preview: function(osd_data) {
+                        // 6 chars
+                        var p = FONT.symbol(SYM.WIND_SPEED_VERTICAL) + FONT.symbol(SYM.AH_DECORATION_UP);
+                        if (OSD.data.unit_mode === 0 || OSD.data.unit_mode === 2) {
+                            // Imperial
+                            p += FONT.embed_dot('1.03') + FONT.symbol(SYM.MPH);
+                        } else {
+                            p += FONT.embed_dot('1.67') + FONT.symbol(SYM.KMH);
+                        }
+                        return p;
+                    }
                 },
             ]
         },
