@@ -1073,6 +1073,11 @@ var mspHelper = (function (gui) {
             case MSPCodes.MSP_OSD_CHAR_WRITE:
                 console.log('OSD char uploaded');
                 break;
+            case MSPCodes.MSP_NAME:
+                break;
+            case MSPCodes.MSP_SET_NAME:
+                console.log("Craft name set");
+                break;
             case MSPCodes.MSPV2_SETTING:
                 break;
             case MSPCodes.MSPV2_SET_SETTING:
@@ -2405,6 +2410,39 @@ var mspHelper = (function (gui) {
             callback();
         }
     };
+
+    self.getCraftName = function(callback) {
+        if (semver.gt(CONFIG.flightControllerVersion, "1.8.0")) {
+            MSP.send_message(MSPCodes.MSP_NAME, false, false, function(resp) {
+                var name = "";
+                for (var ii = 0; ii < resp.data.byteLength; ii++) {
+                    var c = resp.data.readU8();
+                    if (c != 0) {
+                        name += String.fromCharCode(c);
+                    }
+                }
+                if (callback) {
+                    callback(name);
+                }
+            });
+        } else if (callback) {
+            callback(null);
+        }
+    };
+
+    self.setCraftName = function(name, callback) {
+        if (semver.gt(CONFIG.flightControllerVersion, "1.8.0")) {
+            var data = [];
+            name = name || "";
+            for (var ii = 0; ii < name.length; ii++) {
+                data.push(name.charCodeAt(ii));
+            }
+            MSP.send_message(MSPCodes.MSP_SET_NAME, data, false, callback);
+        } else if (callback) {
+            callback();
+        }
+    };
+
 
     return self;
 })(GUI);
