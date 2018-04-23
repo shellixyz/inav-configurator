@@ -1247,7 +1247,7 @@ TABS.osd.initialize = function (callback) {
                         // consume drag/drop events.
                         item.preview_img.style.pointerEvents = 'none';
                     }
-                    var centerishPosition = 225;
+                    var centerishPosition = 224;
 
                     // artificial horizon
                     if ($('input[name="ARTIFICIAL_HORIZON"]').prop('checked')) {
