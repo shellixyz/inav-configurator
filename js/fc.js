@@ -758,20 +758,38 @@ var FC = {
         RX_CONFIG.receiver_type = rxType.value;
     },
     getSerialRxTypes: function () {
-        var data = [
-            'SPEKTRUM1024',
-            'SPEKTRUM2048',
-            'SBUS',
-            'SUMD',
-            'SUMH',
-            'XBUS_MODE_B',
-            'XBUS_MODE_B_RJ01',
-            'IBUS',
-            'JETI EXBUS',
-            'TBS Crossfire',
-            'FPort',
-            'SBUS Fast',
-        ];
+        if (semver.gte(CONFIG.flightControllerVersion, "2.5.0")) {
+            return [
+                'SPEKTRUM1024',
+                'SPEKTRUM2048',
+                'SBUS',
+                'SUMD',
+                'SUMH',
+                'XBUS_MODE_B',
+                'XBUS_MODE_B_RJ01',
+                'IBUS',
+                'JETI EXBUS',
+                'TBS Crossfire',
+                'FPort',
+                'FPort2',
+                'SBUS Fast',
+            ];
+        } else {
+            return [
+                'SPEKTRUM1024',
+                'SPEKTRUM2048',
+                'SBUS',
+                'SUMD',
+                'SUMH',
+                'XBUS_MODE_B',
+                'XBUS_MODE_B_RJ01',
+                'IBUS',
+                'JETI EXBUS',
+                'TBS Crossfire',
+                'FPort',
+                'SBUS Fast',
+            ];
+        }
 
         return data;
     },
