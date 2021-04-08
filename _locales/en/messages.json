@@ -1013,6 +1013,9 @@
     "portsFunction_SMARTPORT_MASTER": {
         "message": "SmartPort Master"
     },
+    "portsFunction_RF_DIR_FINDER": {
+        "message": "RF Direction Finder"
+    },
     "portsFunction_RX_SERIAL": {
         "message": "Serial RX"
     },
