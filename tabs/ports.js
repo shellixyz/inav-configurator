@@ -41,6 +41,12 @@ TABS.ports.initialize = function (callback) {
     );
 
     functionRules.push({
+        name: 'RF_DIR_FINDER',
+        groups: ['sensors'],
+        maxPorts: 1 }
+    );
+
+    functionRules.push({
         name: 'GSM_SMS',
         groups: ['telemetry'],
         maxPorts: 1 }
