@@ -2761,6 +2761,15 @@
     "osdGroupMapsAndRadars_HELP": {
         "message": "Maps and radars allow laying out additional elements on top of them as long as they don't overlap any of the map parts visible in the preview."
     },
+    "osdGroupRFDirectionFinder": {
+        "message": "RF Direction Finder"
+    },
+    "osdElement_RFDF_MEASUREMENT": {
+        "message": "Signal strength"
+    },
+    "osdElement_RFDF_BATTERY_VOLTAGE": {
+        "message": "Battery voltage"
+    },
     "osdElement_ONTIME_FLYTIME": {
         "message": "On Time / Fly Time"
     },

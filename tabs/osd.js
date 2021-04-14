@@ -781,6 +781,21 @@ OSD.constants = {
             ]
         },
         {
+            name: 'osdGroupRFDirectionFinder',
+            items: [
+                {
+                    name: 'RFDF_MEASUREMENT',
+                    id: 121,
+                    preview: FONT.symbol(SYM.RSSI) + '1234',
+                },
+                {
+                    name: 'RFDF_BATTERY_VOLTAGE',
+                    id: 122,
+                    preview: FONT.symbol(SYM.BATT) + FONT.embed_dot("3.90") + FONT.symbol(SYM.VOLT),
+                }
+            ]
+        },
+        {
             name: 'osdGroupTemperature',
             items: [
                 {
